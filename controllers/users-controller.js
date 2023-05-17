@@ -1,4 +1,4 @@
-// const uuid = require("uuid").v4;
+const uuid = require("uuid").v4;
 const { validationResult } = require("express-validator");
 const User = require("../models/user");
 
@@ -40,7 +40,8 @@ const signUp = async (req, res, next) => {
     name,
     email,
     password,
-    image: "",
+    image:
+      "https://m.media-amazon.com/images/M/MV5BNGJmMWEzOGQtMWZkNS00MGNiLTk5NGEtYzg1YzAyZTgzZTZmXkEyXkFqcGdeQXVyMTE1MTYxNDAw._V1_.jpg",
     places: [],
   });
 
@@ -51,7 +52,7 @@ const signUp = async (req, res, next) => {
     return next(error);
   }
 
-  res.json({ user: createdUser.toObject({ getters: true }) });
+  res.json({ users: createdUser.toObject({ getters: true }) });
 };
 
 const login = async (req, res, next) => {

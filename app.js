@@ -10,7 +10,17 @@ const usersRoutes = require("./routes/users-route");
 
 const app = express();
 
-app.use(bodyParser.json()); //using the bodyparser middleware to obtain any incoming req body and convert the data to a JS data structure
+app.use(bodyParser.json());
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.setHeader("Acesss-Control-Allow-Methods", "POST, GET, PATCH, DElETE");
+  next();
+});
 
 //adding a route middleware
 app.use("/api/places", placesRoutes);
@@ -19,7 +29,7 @@ app.use("/api/users", usersRoutes);
 //setting a middleware that runs when there is a request that dont get a response
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route", 404);
-  throw error;
+  return next(error);
 });
 
 //adding an error middle ware function
@@ -27,7 +37,7 @@ app.use((error, req, res, next) => {
   if (res.headerSent) {
     return next(error);
   }
-  res.status(error.code || 500); //a 500 code indicates something went wrong on the server
+  res.status(error.code || 500);
   res.json({ message: error.message || "An unknown error occurred" });
 });
 

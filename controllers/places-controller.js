@@ -1,4 +1,4 @@
-const uuid = require("uuid").v4; //using const uuid= require("uuid/v4") results in a nodemon crash
+// const uuid = require("uuid").v4; //using const uuid= require("uuid/v4") results in a nodemon crash
 const { validationResult } = require("express-validator");
 const mongoose = require("mongoose");
 

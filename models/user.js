@@ -1,5 +1,5 @@
 const moongose = require("mongoose");
-const uniqueValidator = require("moongoose-unique-validator");
+const uniqueValidator = require("mongoose-unique-validator");
 
 const Schema = moongose.Schema;
 
